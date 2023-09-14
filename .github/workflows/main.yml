@@ -12,10 +12,12 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-      - name: Lint Code Base
-        uses: super-linter/super-linter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: HTML5Validator
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: tests/
+          blacklist: invalid
 
       - name: Set up Node.js 16
         uses: actions/setup-node@v2
