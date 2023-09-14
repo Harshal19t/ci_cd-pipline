@@ -11,7 +11,13 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - run: cat .github/super-linter.env >> "$GITHUB_ENV"
+      - name: Lint Code Base
+        uses: super-linter/super-linter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: develop
 
       - name: Set up Node.js 16
         uses: actions/setup-node@v2
@@ -20,11 +26,7 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-
-      - name: Run Super-Linter
-        uses: github/super-linter@v3
-        with:
-          node-version: 16
+        
 
       - name: Deploy to Web Server
         run: |
